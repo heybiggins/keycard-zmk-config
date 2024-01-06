@@ -1,0 +1,80 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+#define ALPHA1   0
+#define ALPHA2   1
+#define SYSTEM3  2
+#define NUMERIC4 3
+
+/ {
+    behaviors {
+        bhm: balanced_homerow_mods {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;    // <---[[moderate duration]]
+            quick-tap-ms = <0>;
+            flavor = "balanced";
+            bindings = <&kp>, <&kp>;
+        };
+    };
+
+    &caps_word {
+            continue-list = <ENTER>;
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        alpha1_layer {
+// ---------------------------------------------------------------------------------------------------
+// |    Q    |    W    |    F    |    P    |                 |    L    |    U    |    Y    |  bk.sp  |
+// | A shft  | R optn  |  S cmd  | T cntrl |                 | N cntrl |  E cmd  | I optn  | O shft  |
+// |    Z    |    X    |    C    |    D    |  A2   | |  ._.  |    H    |   , !   |   . ?   |   entr  |
+// ---------------------------------------------------------------------------------------------------
+            bindings = <
+    &kp Q         &kp W        &kp F        &kp P                                  &kp L         &kp U              &kp Y             &kp BSPC
+    &bhm LSHFT A  &bhm LALT R  &bhm LCMD S  &bhm LCTRL T                           &bhm RCTRL N  &bhm RCMD E        &bhm RALT I       &bhm RSHFT O
+    &kp Z         &kp X        &kp C        &kp D         &sl ALPHA2    &kp SPACE  &kp H         &ht_bl EXCL COMMA  &ht_bl QMARK DOT  &kp ENTER
+            >;
+        };
+
+        alpha2_layer {
+// ---------------------------------------------------------------------------------------------------
+// |   esc   |   tab   | cap_lck |    b    |                 |    J    |   - _   |   / \   |  bk.sp  |
+// |  shft   |  optn   |   cmd   | G cntrl |                 | M cntrl | ; : cmd |' " optn |   shft  |
+// |    A2   |    S3   |    N4   |    V    |   A1  | |  ._.  |    K    |   [ {   |   } ]   |   entr  |
+// ---------------------------------------------------------------------------------------------------
+            bindings = <
+    &kp ESC     &kp TAB      &caps_word    &kp B                                  &kp J         &ht_bl UNDER MINUS  &ht_bl BSLH FSLH  &kp BSPC
+    &kp LSHFT   &kp LALT     &kp LCMD      &bhm LCTRL G                           &bhm RCTRL M  &bhm RCMD SEMI      &bhm RALT APOS    &kp RSHFT
+    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &kp V         &to ALPHA1    &kp SPACE  &kp K         &ht_bl LBRC LBKT    &ht_bl RBRC RBKT  &kp ENTER
+            >;
+        };
+
+        system3_layer {
+// ---------------------------------------------------------------------------------------------------
+// |   esc   |   tab   |         |         |                 |  br.up  |  up     |  br.dn  |  bk.sp  |
+// |  shft   |  optn   |   cmd   |  cntrl  |                 |   left  |  down   |  right  |         |
+// |    A2   |    S3   |    N4   |         |   A1  | |  ._.  | vol.up  |  vol.mt |  vol.dn |   entr  |
+// ---------------------------------------------------------------------------------------------------
+            bindings = <
+    &kp ESC     &kp TAB      &none         &none                               &kp C_BRI_UP  &kp UP      &kp C_BRI_DN  &kp BSPC
+    &kp LSHFT   &kp LALT     &kp LCMD      &kp LCTRL                           &kp LEFT      &kp DOWN    &kp RIGHT     &none
+    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &none      &to ALPHA1    &kp SPACE  &kp C_VOL_UP  &kp C_MUTE  &kp C_VOL_DN  &kp ENTER
+            >;
+        };
+
+        numeric4_layer {
+// ---------------------------------------------------------------------------------------------------
+// |    %    |    (    |    )    |    =    |                 |   1 ~   |   2 @   |   3 #   |  bk.sp  |
+// |    /    |    *    |    -    |    +    |                 |   4 $   |   5 `   |   6 ^   |   0 |   |
+// |    A2   |    S3   |    N4   |   , .   |   A1  | |  ._.  |   7 &   |   8 <   |   9 >   |   entr  |
+// ---------------------------------------------------------------------------------------------------
+            bindings = <
+    &kp PRCNT   &kp LPAR     &kp RPAR      &kp EQUAL                                  &ht_bl TILDE N1  &ht_bl AT N2     &ht_bl HASH N3   &kp BSPC
+    &kp FSLH    &kp STAR     &kp MINUS     &kp PLUS                                   &ht_bl DLLR N4   &ht_bl GRAVE N5  &ht_bl CARET N6  &ht_bl PIPE N0
+    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &ht_bl DOT COMMA  &to ALPHA1    &kp SPACE  &ht_bl AMPS N7   &ht_bl LT N8     &ht_bl GT N9     &kp ENTER
+            >;
+        };
+    };
+};
