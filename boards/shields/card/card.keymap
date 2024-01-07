@@ -6,6 +6,10 @@
 #define SYSTEM3  2
 #define NUMERIC4 3
 
+&caps_word {
+    continue-list = <ENTER SPACE COMMA DOT SQT DQT MINUS QMARK EXCL SEMI COLON LPAR RPAR PRCNT FSLH UNDER AT AMPS DLLR PIPE LT GT>;
+};
+
 / {
     behaviors {
         bhm: balanced_homerow_mods {
@@ -16,11 +20,6 @@
             flavor = "balanced";
             bindings = <&kp>, <&kp>;
         };
-
-        &caps_word {
-            continue-list = <ENTER>;
-        };
-
     };
 
     keymap {
