@@ -5,6 +5,7 @@
 #define ALPHA2   1
 #define SYSTEM3  2
 #define NUMERIC4 3
+#define BOOT5    4
 
 &caps_word {
     continue-list = <ENTER SPACE COMMA DOT SQT DQT MINUS QMARK EXCL SEMI COLON LPAR RPAR PRCNT FSLH UNDER AT AMPS DLLR PIPE LT GT>;
@@ -63,12 +64,12 @@
 // ---------------------------------------------------------------------------------------------------
 // |   esc   |   tab   |         |         |                 |  br.up  |  up     |  br.dn  |  bk.sp  |
 // |  shft   |  optn   |   cmd   |  cntrl  |                 |   left  |  down   |  right  |         |
-// |    A2   |    S3   |    N4   |         |   A1  | |  ._.  | vol.up  |  vol.mt |  vol.dn |   entr  |
+// |    A2   |    S3   |    N4   |   B5    |   A1  | |  ._.  | vol.up  |  vol.mt |  vol.dn |   entr  |
 // ---------------------------------------------------------------------------------------------------
             bindings = <
     &kp ESC     &kp TAB      &none         &none                               &kp C_BRI_UP  &kp UP      &kp C_BRI_DN  &kp BSPC
     &kp LSHFT   &kp LALT     &kp LCMD      &kp LCTRL                           &kp LEFT      &kp DOWN    &kp RIGHT     &none
-    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &none      &to ALPHA1    &kp SPACE  &kp C_VOL_UP  &kp C_MUTE  &kp C_VOL_DN  &kp ENTER
+    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &to BOOT5  &to ALPHA1    &kp SPACE  &kp C_VOL_UP  &kp C_MUTE  &kp C_VOL_DN  &kp ENTER
             >;
         };
 
@@ -82,6 +83,19 @@
     &kp PRCNT   &kp LPAR     &kp RPAR      &kp EQUAL                                  &ht_bl TILDE N1  &ht_bl AT N2     &ht_bl HASH N3   &kp BSPC
     &kp FSLH    &kp STAR     &kp MINUS     &kp PLUS                                   &ht_bl DLLR N4   &ht_bl GRAVE N5  &ht_bl CARET N6  &ht_bl PIPE N0
     &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &ht_bl DOT COMMA  &to ALPHA1    &kp SPACE  &ht_bl AMPS N7   &ht_bl LT N8     &ht_bl GT N9     &kp ENTER
+            >;
+        };
+
+        boot5_layer {
+// ---------------------------------------------------------------------------------------------------
+// |         |         |         |         |                 |   boot  |         |  bt.prv |  bt.nxt |
+// |         |         |         |         |                 |         |         |         |         |
+// |    A2   |    S3   |    N4   |         |   A1  | |       |         |         |         |  bt.clr |
+// ---------------------------------------------------------------------------------------------------
+            bindings = <
+    &none       &none        &none         &none                       &bootloader  &none  &bt BT_PRV  &bt BT_NXT
+    &none       &none        &none         &none                       &none        &none  &none       &none
+    &to ALPHA2  &to SYSTEM3  &to NUMERIC4  &none  &to ALPHA1    &none  &none        &none  &none       &bt BT_CLR
             >;
         };
     };
