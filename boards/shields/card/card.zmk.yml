@@ -4,6 +4,7 @@ name: card
 type: shield
 url: https://github.com/heybiggins/zmk-config
 requires: [pro_micro]
+exposes: [i2c_oled]
 features:
   - keys
 siblings:
